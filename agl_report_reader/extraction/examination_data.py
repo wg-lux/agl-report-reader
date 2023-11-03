@@ -1,7 +1,8 @@
 from datetime import datetime
 import re
+from ..utils import remove_titles
 
-def extract_examination_info(line):
+def extract_examination_info(line, remove_examiner_titles = True):
     """
     Extracts examiner and examination time information from a given text line.
     
@@ -20,6 +21,9 @@ def extract_examination_info(line):
     Output: {'examiner_last_name': 'Dr. med. Lux', 'examiner_first_name': 'Thomas',
              'examination_date': '2023-06-09', 'examination_time': '09:30'}
     """
+
+    if remove_examiner_titles:
+        line = remove_titles(line)
     
     # Define the regular expression pattern for matching the relevant fields
     pattern = r"Unters\.: ([\w\s\.]+), ([\w\s]+) U-datum: (\d{2}\.\d{2}\.\d{4}) (\d{2}:\d{2})"

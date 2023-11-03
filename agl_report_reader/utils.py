@@ -1,6 +1,24 @@
 import gender_guesser.detector as gender
 import random
 import re
+import hashlib
+
+def pdf_hash(pdf_binary):
+    """
+    Calculates the SHA256 hash of a PDF file.
+    
+    Parameters:
+    - pdf_binary: bytes
+        The binary content of the PDF file.
+        
+    Returns:
+    - hash: str
+        The SHA256 hash of the PDF file.
+    """
+    return hashlib.sha256(pdf_binary).hexdigest()
+
+def remove_titles(name):
+        return re.sub(r'(Dr\. med\. |Dr\. |Prof\.)', '', name)
 
 def determine_gender(first_name, detector):
     '''

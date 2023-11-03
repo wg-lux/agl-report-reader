@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "agl-report-reader"
-version = "0.1.0"
+version = "0.1.3"
 description = "Read and anonymize medical reports"
 authors = ["Thomas J. Lux"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">3.11,<3.13"
+python = ">3.10,<3.13"
 pdfplumber = "^0.10.2"
 Faker = "^19.10.0"
 gender-guesser = "^0.4.0"

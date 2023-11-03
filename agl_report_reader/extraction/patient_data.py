@@ -49,9 +49,9 @@ def extract_patient_info(line, gender_detector=None):
         casenumber = match.group('casenumber')
         
         info = {
-            'first_name': first_name,
-            'last_name': last_name,
-            'birthdate': birthdate,
+            'patient_first_name': first_name,
+            'patient_last_name': last_name,
+            'patient_dob': birthdate,
             'casenumber': casenumber,
             'gender': patient_gender,
         }

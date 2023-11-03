@@ -60,7 +60,7 @@ def anonymize_report(
             text = text.replace(clean_name, fake_name)
         
         # Replace patient's birthdate with a random date in the same year
-        if key == 'birthdate':
+        if key == 'dob':
             birth_date = datetime.strptime(value, '%Y-%m-%d')
             random_birthdate = datetime(birth_date.year, random.randint(1, 12), random.randint(1, 28))
             formatted_date = random_birthdate.strftime(text_date_format)
