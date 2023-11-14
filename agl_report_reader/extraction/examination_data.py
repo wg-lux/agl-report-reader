@@ -26,7 +26,7 @@ def extract_examination_info(line, remove_examiner_titles = True):
         line = remove_titles(line)
     
     # Define the regular expression pattern for matching the relevant fields
-    pattern = r"Unters\.: ([\w\s\.]+), ([\w\s]+) U-datum: (\d{2}\.\d{2}\.\d{4}) (\d{2}:\d{2})"
+    pattern = r"Unters\.: ([\w\s\.]+), ([\w\s]+)\s*U-datum:\s*(\d{2}\.\d{2}\.\d{4}) (\d{2}:\d{2})"
     
     # Search for the pattern in the given line
     match = re.search(pattern, line)

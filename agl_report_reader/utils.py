@@ -3,6 +3,28 @@ import random
 import re
 import hashlib
 
+def replace_umlauts(text):
+    """
+    Replace German umlauts with their corresponding letter (ä -> a).
+
+    Parameters:
+    - text: str
+        A string of text.
+
+    Returns:
+    - text: str
+        The input text with replaced umlauts.
+    """
+    text = text.replace('ä', 'a')
+    text = text.replace('ö', 'o')
+    text = text.replace('ü', 'u')
+    text = text.replace('Ä', 'A')
+    text = text.replace('Ö', 'O')
+    text = text.replace('Ü', 'U')
+    # text = text.replace('ß', 'ss')
+
+    return text
+
 def pdf_hash(pdf_binary):
     """
     Calculates the SHA256 hash of a PDF file.
