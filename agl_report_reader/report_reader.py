@@ -16,7 +16,7 @@ from .utils import pdf_hash
 class ReportReader:
     def __init__(
             self,
-            report_root_path:str,
+            report_root_path:str = None, # DEPRECEATED
             locale:str = DEFAULT_SETTINGS["locale"],
             employee_first_names:List[str] = DEFAULT_SETTINGS["first_names"],
             employee_last_names:List[str] = DEFAULT_SETTINGS["last_names"],
