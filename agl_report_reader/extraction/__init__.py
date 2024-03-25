@@ -27,11 +27,16 @@ def extract_report_meta(
     if endoscope_info_line:
         endoscope_info = extract_endoscope_info(endoscope_info_line)
         ic(endoscope_info)
-        report_meta.update(endoscope_info)
+        if endoscope_info:
+            report_meta.update(endoscope_info)
+        else: 
+            # ic log that no endoscope info was found
+            ic("No endoscope info found")
 
     examiner_info_line = get_line_by_flag(text, examiner_info_line_flag)
     ic(examiner_info_line)
     if examiner_info_line:
+        # FIXME IN CURRENT HISTO PDF PROCESSING THIS RETURNS NONE
         examiner_info = extract_examination_info(examiner_info_line)
         ic(examiner_info)
         report_meta.update(examiner_info)

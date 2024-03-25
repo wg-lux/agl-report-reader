@@ -52,6 +52,14 @@ CUT_OFF_BELOW_LINE_FLAGS = [
         CUT_OFF_BELOW_LINE_FLAG
     ]
 
+# "ukw-histology-generic-patient-info-line": "Patient: "
+# "ukw-endoscopy-histology-cut-off-below-line-flag-01": "$$-3"
+# "cut_off_below_line_flags": [
+#   "ukw-endoscopy-histology-cut-off-below-line-flag-01"
+# ]
+# "cut_off_above_line_flags": [
+#   "ukw-endoscopy-histology-patient-info-line"
+# ]
 DEFAULT_SETTINGS = {
     "locale": "de_DE",
     "first_names": FIRST_NAMES,

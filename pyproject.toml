@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "agl-report-reader"
-version = "0.2.0"
+version = "0.3.0"
 description = "Read and anonymize medical reports"
 authors = ["Thomas J. Lux"]
 license = "MIT"

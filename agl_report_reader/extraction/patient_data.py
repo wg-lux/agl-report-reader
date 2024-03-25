@@ -3,7 +3,7 @@ import re
 from ..utils import determine_gender
 import gender_guesser.detector as gender
 import warnings
-
+    
 def extract_patient_info(line, gender_detector=None):
     """
     Extracts patient information from a given text line.
@@ -25,37 +25,43 @@ def extract_patient_info(line, gender_detector=None):
     """
     # Define the regular expression pattern for matching the relevant fields
     # Using named groups for better readability
-    pattern = r"Patient: (?P<last_name>[\w\s-]+) ,(?P<first_name>[\w\s-]+) geb\. (?:(?P<birthdate>\d{2}\.\d{2}\.\d{4}))? *Fallnummer: (?P<casenumber>\d+)"
-    
+    patterns = [
+        r"Patient: (?P<last_name>[\w\s-]+) ,(?P<first_name>[\w\s-]+) geb\. (?:(?P<birthdate>\d{2}\.\d{2}\.\d{4}))? *Fallnummer: (?P<casenumber>\d+)",
+        r"Patient: (?P<last_name>[\w\s-]+),\s?(?P<first_name>[\w\s-]+) geboren am: (?:(?P<birthdate>\d{2}\.\d{2}\.\d{4}))?"
+    ]  
     if not gender_detector:
         warnings.warn("Warning: No gender detector provided, using default detector.")
         # Initialize your gender detector here
         gender_detector = gender.Detector()
 
     # Search for the pattern in the given line
-    match = re.search(pattern, line)
+    for pattern in patterns:
+        match = re.search(pattern, line)
     
-    if match:
-        # Extract named groups
-        last_name = match.group('last_name').strip()
-        first_name = match.group('first_name').strip()
-        # Implement your own determine_gender function or use gender_detector
-        patient_gender = determine_gender(first_name.split()[0], gender_detector)
-        
-        birthdate_str = match.group('birthdate')
-        
-        # Convert the birthdate to the format YYYY-MM-DD if available, otherwise use a default value
-        birthdate = datetime.strptime(birthdate_str, '%d.%m.%Y').strftime('%Y-%m-%d') if birthdate_str else '1900-01-01'
-        casenumber = match.group('casenumber')
-        
-        info = {
-            'patient_first_name': first_name,
-            'patient_last_name': last_name,
-            'patient_dob': birthdate,
-            'casenumber': casenumber,
-            'gender': patient_gender,
-        }
-        
-        return info
-    else:
-        return None  # Return None if the pattern doesn't match
+        if match:
+            # Extract named groups
+            last_name = match.group('last_name').strip()
+            first_name = match.group('first_name').strip()
+            # Implement your own determine_gender function or use gender_detector
+            patient_gender = determine_gender(first_name.split()[0], gender_detector)
+            
+            birthdate_str = match.group('birthdate')
+            
+            # Convert the birthdate to the format YYYY-MM-DD if available, otherwise use a default value
+            birthdate = datetime.strptime(birthdate_str, '%d.%m.%Y').strftime('%Y-%m-%d') if birthdate_str else '1900-01-01'
+            # case number is optional
+            try:
+                casenumber = match.group('casenumber')
+            except: 
+                casenumber = None
+            
+            info = {
+                'patient_first_name': first_name,
+                'patient_last_name': last_name,
+                'patient_dob': birthdate,
+                'casenumber': casenumber,
+                'gender': patient_gender,
+            }
+            
+            return info
+    return None  # Return None if the pattern doesn't match

@@ -3,7 +3,9 @@ from datetime import datetime, timedelta
 import random
 import re
 from ..utils import replace_large_numbers
-from .redact import cutoff_leading_text, cutoff_trailing_text
+from .redact import cutoff_leading_text, cutoff_trailing_text#
+from icecream import ic
+from pprint import pprint
 
 def replace_employee_names(text, first_names, last_names, locale = None):
     fake = Faker(locale=locale)
@@ -46,28 +48,35 @@ def anonymize_report(
     def remove_titles(name):
         return re.sub(r'(Dr\. med\. |Dr\. |Prof\.)', '', name)
     
+    # ic("Anonymizing report...")
+    # ic("Report meta:")
+    # _log = pprint(report_meta)
+    # ic(_log)
+    # _log = pprint(text)
+    # ic(_log)
+    
     # Loop through each key-value pair in report_meta to replace names and dates
     for key, value in report_meta.items():
         # Remove titles and replace names
-        if 'first_name' in key:
+        if 'first_name' in key and value:
             clean_name = remove_titles(value)
             fake_name = fake.first_name()
             text = text.replace(clean_name, fake_name)
             
-        if 'last_name' in key:
+        if 'last_name' in key and value:
             clean_name = remove_titles(value)
             fake_name = fake.last_name()
             text = text.replace(clean_name, fake_name)
         
         # Replace patient's birthdate with a random date in the same year
-        if key == 'dob':
+        if 'dob' in key and value:
             birth_date = datetime.strptime(value, '%Y-%m-%d')
             random_birthdate = datetime(birth_date.year, random.randint(1, 12), random.randint(1, 28))
             formatted_date = random_birthdate.strftime(text_date_format)
             text = text.replace(datetime.strftime(birth_date, text_date_format), formatted_date)
         
         # Replace examination date with a random date in the same month
-        if key == 'examination_date':
+        if 'examination_date' in key and value:
             exam_date = datetime.strptime(value, '%Y-%m-%d')
             random_exam_date = exam_date + timedelta(days=random.randint(-15, 15))
             formatted_date = random_exam_date.strftime(text_date_format)
@@ -75,6 +84,15 @@ def anonymize_report(
 
     text = replace_employee_names(text, first_names, last_names, locale = locale)
     text = replace_large_numbers(text)
+
+    
+    # ic("Removing leading and trailing text...")
+    # ic("Upper cut off flags:")
+    # ic(upper_cut_off_flags)
+    # ic("Lower cut off flags:")
+    # ic(lower_cut_off_flags)
+    # ic("Text before cut off:")
+    # ic(text)
 
     # Remove all text above the upper cutoff flag
     text = cutoff_leading_text(text, upper_cut_off_flags)
