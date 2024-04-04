@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .dev/
 data/*
+.direnv/
 
 # C extensions
 *.so
