@@ -88,6 +88,7 @@
         pip
         setuptools
         icecream
+        pdfplumber
       ];
       # postShellHook = ''
       #   python manage.py migrate  
