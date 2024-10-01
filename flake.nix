@@ -84,13 +84,13 @@
       overrides = p2n-overrides;
       preferWheels = true; # some packages, e.g. transformers break if false
       propagatedBuildInputs =  with pkgs."python${python_version}Packages"; [
-        pdfplumber
+        # pdfplumber
       ];
       nativeBuildInputs = with pkgs."python${python_version}Packages"; [
         pip
         setuptools
         icecream
-        pdfplumber
+        # pdfplumber
       ];
     };
     
