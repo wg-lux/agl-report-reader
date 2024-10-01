@@ -406,8 +406,8 @@
     "nixpkgs_2": {
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-KQPI8CTTnB9CrJ7LrmLC4VWbKZfljEPBXOFGZFRpxao=",
-        "path": "/nix/store/m1g5a7agja7si7y9l1lzwhp3capbv7x9-source",
+        "narHash": "sha256-9/79hjQc9+xyH+QxeMcRsA6hDyw6Z9Eo1/oxjvwirLk=",
+        "path": "/nix/store/s9hbmmf7hgg7imnm5q6ny7gznbh0amfy-source",
         "type": "path"
       },
       "original": {

@@ -89,7 +89,6 @@
       nativeBuildInputs = with pkgs."python${python_version}Packages"; [
         pip
         setuptools
-        icecream
         # pdfplumber
       ];
     };

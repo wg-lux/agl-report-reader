@@ -4,8 +4,6 @@ import random
 import re
 from ..utils import replace_large_numbers
 from .redact import cutoff_leading_text, cutoff_trailing_text#
-from icecream import ic
-from pprint import pprint
 
 def replace_employee_names(text, first_names, last_names, locale = None):
     fake = Faker(locale=locale)
